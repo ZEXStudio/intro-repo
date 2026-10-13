@@ -9,6 +9,7 @@
         --bg: #0c1220;
         --bg-soft: #101b2d;
         --panel: rgba(17, 24, 39, 0.9);
+        --card: rgba(255,255,255,0.05);
         --card-hover: rgba(255,255,255,0.09);
         --text: #edf6ff;
         --muted: #bac7d8;
@@ -85,9 +86,17 @@
       .trend { padding: 7px 10px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; background: rgba(52,211,153,0.12); color: #aaf5d5; }
       .trend.down { background: rgba(251, 113, 133, 0.12); color: #ffc0cc; }
       .character-art {
-        height: 150px; border-radius: 18px; margin-bottom: 16px; display: flex; align-items: end; padding: 16px;
-        background: linear-gradient(135deg, rgba(52,211,153,0.8), rgba(103,232,249,0.7), rgba(139,92,246,0.7));
-        color: white; font-weight: 900; letter-spacing: 0.08em;
+        position: relative; height: 170px; border-radius: 18px; margin-bottom: 16px; overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(135deg, rgba(52,211,153,0.8), rgba(103,232,249,0.7), rgba(139,92,246,0.7));
+        box-shadow: inset 0 0 20px rgba(255,255,255,0.12);
+      }
+      .character-art img {
+        width: 100%; height: 100%; display: block; object-fit: cover; filter: saturate(1.4) contrast(1.12) brightness(1.06);
+        transform: scale(1.04);
+      }
+      .character-art .art-label {
+        position: absolute; right: 12px; bottom: 12px; padding: 6px 10px; background: rgba(0,0,0,0.25);
+        border-radius: 999px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; backdrop-filter: blur(4px);
       }
       .card h3 { margin: 0 0 8px; font-size: 1.2rem; }
       .meta { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 0.8rem; margin-bottom: 14px; }
@@ -127,7 +136,7 @@
           <h1>転スラ第4期第2クール最終回時点<br>人気キャラランキング</h1>
           <p class="subtitle">
             アニメ第4期第2クール最終回を迎えた時点での人気投票を想定したランキングです。<br>
-            リムル中心の勢力図と、ディアブロ・ベニマル・ミリム・ヒナタ・ルミナス・クロエ・クロノアなどの活躍を反映した見た目で、ファン向けの紹介ページとして見やすくまとめています。
+            ライバルや仲間、魔法使い、知略のキャラクターたちを画像付きで見やすくまとめています。
           </p>
           <div class="hero-actions">
             <button class="btn btn-primary">ランキングを見る</button>
@@ -159,20 +168,20 @@
 
     <script>
       const items = [
-        { rank: 1, name: "リムル", category: "battle", score: 99, trend: "up", votes: 52740, tags: ["統率", "成長", "王者"], label: "No.1" },
-        { rank: 2, name: "ディアブロ", category: "wisdom", score: 98, trend: "up", votes: 49860, tags: ["知略", "忠誠", "最高傑作"], label: "最優秀" },
-        { rank: 3, name: "ベニマル", category: "battle", score: 97, trend: "up", votes: 47610, tags: ["剣豪", "指揮", "信頼"], label: "超人気" },
-        { rank: 4, name: "ミリム", category: "magic", score: 96, trend: "up", votes: 46400, tags: ["爆裂", "友情", "テンション"], label: "熱狂" },
-        { rank: 5, name: "ヴェルドラ", category: "magic", score: 95, trend: "up", votes: 45010, tags: ["巨龍", "圧倒", "破壊"], label: "強者" },
-        { rank: 6, name: "シュナ", category: "ally", score: 94, trend: "up", votes: 43820, tags: ["癒し", "支配", "優雅"], label: "人気" },
-        { rank: 7, name: "ヒナタ", category: "ally", score: 93, trend: "up", votes: 42190, tags: ["優しさ", "仲間", "支え"], label: "支持率" },
-        { rank: 8, name: "ルミナス", category: "magic", score: 92, trend: "up", votes: 41440, tags: ["光", "魔法", "希望"], label: "注目" },
-        { rank: 9, name: "クロエ", category: "wisdom", score: 91, trend: "up", votes: 40810, tags: ["知力", "冷静", "戦略"], label: "安定" },
-        { rank: 10, name: "クロノア", category: "battle", score: 90, trend: "up", votes: 39700, tags: ["勇猛", "守護", "実力"], label: "急伸" },
-        { rank: 11, name: "シオン", category: "ally", score: 89, trend: "down", votes: 38960, tags: ["親衛隊", "忠誠", "熱意"], label: "根強い人気" },
-        { rank: 12, name: "ソウエイ", category: "wisdom", score: 88, trend: "down", votes: 37420, tags: ["戦略", "忍者", "実力"], label: "安定" },
-        { rank: 13, name: "ラミリス", category: "magic", score: 87, trend: "up", votes: 36230, tags: ["魔法", "アイデア", "天才"], label: "注目" },
-        { rank: 14, name: "ゴブタ", category: "battle", score: 86, trend: "up", votes: 35180, tags: ["勇敢", "成長", "仲間"], label: "急伸" }
+        { rank: 1, name: "リムル", category: "battle", score: 99, trend: "up", votes: 52740, tags: ["統率", "成長", "王者"], label: "No.1", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80" },
+        { rank: 2, name: "ディアブロ", category: "wisdom", score: 98, trend: "up", votes: 49860, tags: ["知略", "忠誠", "最高傑作"], label: "最優秀", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80" },
+        { rank: 3, name: "ベニマル", category: "battle", score: 97, trend: "up", votes: 47610, tags: ["剣豪", "指揮", "信頼"], label: "超人気", image: "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=900&q=80" },
+        { rank: 4, name: "ミリム", category: "magic", score: 96, trend: "up", votes: 46400, tags: ["爆裂", "友情", "テンション"], label: "熱狂", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80" },
+        { rank: 5, name: "ヴェルドラ", category: "magic", score: 95, trend: "up", votes: 45010, tags: ["巨龍", "圧倒", "破壊"], label: "強者", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80" },
+        { rank: 6, name: "シュナ", category: "ally", score: 94, trend: "up", votes: 43820, tags: ["癒し", "支配", "優雅"], label: "人気", image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80" },
+        { rank: 7, name: "ヒナタ", category: "ally", score: 93, trend: "up", votes: 42190, tags: ["優しさ", "仲間", "支え"], label: "支持率", image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80" },
+        { rank: 8, name: "ルミナス", category: "magic", score: 92, trend: "up", votes: 41440, tags: ["光", "魔法", "希望"], label: "注目", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80" },
+        { rank: 9, name: "クロエ", category: "wisdom", score: 91, trend: "up", votes: 40810, tags: ["知力", "冷静", "戦略"], label: "安定", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=900&q=80" },
+        { rank: 10, name: "クロノア", category: "battle", score: 90, trend: "up", votes: 39700, tags: ["勇猛", "守護", "実力"], label: "急伸", image: "https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=900&q=80" },
+        { rank: 11, name: "シオン", category: "ally", score: 89, trend: "down", votes: 38960, tags: ["親衛隊", "忠誠", "熱意"], label: "根強い人気", image: "https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=900&q=80" },
+        { rank: 12, name: "ソウエイ", category: "wisdom", score: 88, trend: "down", votes: 37420, tags: ["戦略", "忍者", "実力"], label: "安定", image: "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=900&q=80" },
+        { rank: 13, name: "ラミリス", category: "magic", score: 87, trend: "up", votes: 36230, tags: ["魔法", "アイデア", "天才"], label: "注目", image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" },
+        { rank: 14, name: "ゴブタ", category: "battle", score: 86, trend: "up", votes: 35180, tags: ["勇敢", "成長", "仲間"], label: "急伸", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80" }
       ];
 
       const grid = document.getElementById("rankingGrid");
@@ -186,13 +195,20 @@
               <div class="rank-badge">#${item.rank}</div>
               <div class="trend ${item.trend === "down" ? "down" : ""}">${item.trend === "up" ? "▲ 上昇" : "▼ 下落"}</div>
             </div>
-            <div class="character-art">${item.label}</div>
+
+            <div class="character-art">
+              <img src="${item.image}" alt="${item.name}" />
+              <div class="art-label">${item.label}</div>
+            </div>
+
             <h3>${item.name}</h3>
             <div class="meta">
               <span>${item.votes.toLocaleString()}票</span>
               <span class="score">${item.score}</span>
             </div>
+
             <div class="tags">${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div>
+
             <div class="card-footer">
               <small>カテゴリ: ${item.category}</small>
               <button class="detail-btn">詳細</button>
